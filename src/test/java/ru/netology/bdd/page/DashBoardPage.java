@@ -16,21 +16,21 @@ import static com.codeborne.selenide.Selenide.$$;
 public class DashBoardPage {
 
     private static final Faker faker = new Faker(new Locale("ru"));
-    private final ElementsCollection cards = $$(".list__item div");
-    private final SelenideElement heading = $("[data-test-id=dashboard]");
-    private final String balanceStart = "баланс: ";
-    private final String balanceFinish = " р.";
+    private static final ElementsCollection cards = $$(".list__item div");
+    private static final SelenideElement heading = $("[data-test-id=dashboard]");
+    private static final String balanceStart = "баланс: ";
+    private static final String balanceFinish = " р.";
 
     public void DashboardPage() {
         heading.shouldBe(visible);
     }
 
-    public int getCardBalance(DataHelper.CardInfo cardInfo) {
+    public static int getCardBalance(DataHelper.CardInfo cardInfo) {
         var text = cards.findBy(attribute("data-test-id", cardInfo.getId())).getText();
         return extractBalance(text);
     }
 
-    public int extractBalance(String text) {
+    public static int extractBalance(String text) {
         var start = text.indexOf(balanceStart);
         var finish = text.indexOf(balanceFinish);
         var value = text.substring(start + balanceStart.length(), finish);
@@ -42,8 +42,8 @@ public class DashBoardPage {
         return new TransferPage();
     }
 
-    public static int getRandomValidAmount(int getCardBalance) {
-        return faker.number().numberBetween(1, getCardBalance);
+    public static int getRandomValidAmount(DataHelper.CardInfo cardInfo) {
+        return faker.number().numberBetween(1, getCardBalance(cardInfo));
     }
 
     public static int getRandomInvalidPosAmount(int getCardBalance) {

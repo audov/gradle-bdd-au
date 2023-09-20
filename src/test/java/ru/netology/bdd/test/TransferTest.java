@@ -12,8 +12,7 @@ import ru.netology.bdd.page.TransferPage;
 import static com.codeborne.selenide.Selenide.open;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static ru.netology.bdd.data.DataHelper.*;
-import static ru.netology.bdd.page.DashBoardPage.getRandomInvalidPosAmount;
-import static ru.netology.bdd.page.DashBoardPage.getRandomValidAmount;
+import static ru.netology.bdd.page.DashBoardPage.*;
 import static ru.netology.bdd.page.LoginPage.validLogin;
 
 
@@ -40,15 +39,15 @@ public class TransferTest {
         TransferPage transferPage = new TransferPage();
         var fstCardInfo = getFstCardInfo();
         var sndCardInfo = getSndCardInfo();
-        var fstCardBalance = dashBoardPage.getCardBalance(fstCardInfo);
-        var sndCardBalance = dashBoardPage.getCardBalance(sndCardInfo);
-        var amountToTransfer = getRandomValidAmount(fstCardBalance);
+        var fstCardBalance = getCardBalance(fstCardInfo);
+        var sndCardBalance = getCardBalance(sndCardInfo);
+        var amountToTransfer = getRandomValidAmount(fstCardInfo);
         dashBoardPage.selectCardToTransfer(sndCardInfo);
         var expectBalanceFstCard = fstCardBalance - amountToTransfer;
         var expectBalanceSndCard = sndCardBalance + amountToTransfer;
         transferPage.validTransfer(amountToTransfer, fstCardInfo);
-        var actualBalanceFstCard = dashBoardPage.getCardBalance(fstCardInfo);
-        var actualBalanceSndCard = dashBoardPage.getCardBalance(sndCardInfo);
+        var actualBalanceFstCard = getCardBalance(fstCardInfo);
+        var actualBalanceSndCard = getCardBalance(sndCardInfo);
 
         assertEquals(expectBalanceFstCard, actualBalanceFstCard);
         assertEquals(expectBalanceSndCard, actualBalanceSndCard);
@@ -60,15 +59,15 @@ public class TransferTest {
         TransferPage transferPage = new TransferPage();
         var fstCardInfo = getFstCardInfo();
         var sndCardInfo = getSndCardInfo();
-        var fstCardBalance = dashBoardPage.getCardBalance(fstCardInfo);
-        var sndCardBalance = dashBoardPage.getCardBalance(sndCardInfo);
-        var amountToTransfer = getRandomValidAmount(sndCardBalance);
+        var fstCardBalance = getCardBalance(fstCardInfo);
+        var sndCardBalance = getCardBalance(sndCardInfo);
+        var amountToTransfer = getRandomValidAmount(sndCardInfo);
         dashBoardPage.selectCardToTransfer(fstCardInfo);
         var expectBalanceFstCard = fstCardBalance + amountToTransfer;
         var expectBalanceSndCard = sndCardBalance - amountToTransfer;
         transferPage.validTransfer(amountToTransfer, sndCardInfo);
-        var actualBalanceFstCard = dashBoardPage.getCardBalance(fstCardInfo);
-        var actualBalanceSndCard = dashBoardPage.getCardBalance(sndCardInfo);
+        var actualBalanceFstCard = getCardBalance(fstCardInfo);
+        var actualBalanceSndCard = getCardBalance(sndCardInfo);
 
         assertEquals(expectBalanceFstCard, actualBalanceFstCard);
         assertEquals(expectBalanceSndCard, actualBalanceSndCard);
@@ -80,15 +79,14 @@ public class TransferTest {
         TransferPage transferPage = new TransferPage();
         var fstCardInfo = getFstCardInfo();
         var sndCardInfo = getSndCardInfo();
-        var fstCardBalance = dashBoardPage.getCardBalance(fstCardInfo);
-        var sndCardBalance = dashBoardPage.getCardBalance(sndCardInfo);
+        var fstCardBalance = getCardBalance(fstCardInfo);
+        var sndCardBalance = getCardBalance(sndCardInfo);
         var amountToTransfer = getRandomInvalidPosAmount(sndCardBalance);
         dashBoardPage.selectCardToTransfer(fstCardInfo);
         transferPage.validTransfer(amountToTransfer, sndCardInfo);
         transferPage.findErrorNotification("Ошибка!");
-
-        var actualBalanceFstCard = dashBoardPage.getCardBalance(fstCardInfo);
-        var actualBalanceSndCard = dashBoardPage.getCardBalance(sndCardInfo);
+        var actualBalanceFstCard = getCardBalance(fstCardInfo);
+        var actualBalanceSndCard = getCardBalance(sndCardInfo);
 
         assertEquals(fstCardBalance, actualBalanceFstCard);
         assertEquals(sndCardBalance, actualBalanceSndCard);

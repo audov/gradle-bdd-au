@@ -10,6 +10,7 @@ import static com.codeborne.selenide.Condition.exactText;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
+import static ru.netology.bdd.page.DashBoardPage.getRandomValidAmount;
 
 public class TransferPage {
 
