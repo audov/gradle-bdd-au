@@ -1,1 +1,1 @@
-[![Build status](https://ci.appveyor.com/api/projects/status/wuqe4fxwfrgy0379/branch/main?svg=true)](https://ci.appveyor.com/project/audov/gradle-bdd-au/branch/main)
+[![Build status](https://ci.appveyor.com/api/projects/status/h0tidsvldkityn9w/branch/main?svg=true)](https://ci.appveyor.com/project/audov/gradle-bdd1-au/branch/main)
