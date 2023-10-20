@@ -1,12 +1,14 @@
 package ru.netology.bdd.data;
 
-
+import com.github.javafaker.Faker;
 import lombok.Value;
 
-public class DataHelper {
+import java.util.Locale;
 
-    public void DataHelper() {
-    }
+import static ru.netology.bdd.page.DashBoardPage.getCardBalance;
+
+public class DataHelper {
+    private static final Faker faker = new Faker(new Locale("ru"));
 
     public static UserInfo getUserInfo() {
         return new UserInfo("vasya", "qwerty123");
@@ -22,6 +24,17 @@ public class DataHelper {
 
     public static CardInfo getSndCardInfo() {
         return new CardInfo("5559 0000 0000 0002", "0f3f5c2a-249e-4c3d-8287-09f7a039391d");
+    }
+
+    public static int getRandomValidAmount(CardInfo cardInfo) {
+        return faker.number().numberBetween(1, getCardBalance(cardInfo));
+    }
+
+    public static int getRandomInvalidPosAmount(int getCardBalance) {
+        return faker.number().numberBetween(getCardBalance, getCardBalance + 1);
+    }
+
+    public void DataHelper() {
     }
 
     @Value
